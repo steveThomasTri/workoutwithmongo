@@ -1,13 +1,16 @@
 <template>
-  <b-row>
+  <b-row v-bind:style="{color:activeColor,width:wrapper + '%'}">
     <b-col cols="12">
       <h2>
-        Book List
+        Exercise List
         <b-link href="#/add-exercise">(Add Exercise)</b-link>
       </h2>
       <b-table striped hover :items="exercises" :fields="fields">
         <template slot="actions" scope="row">
           <b-btn size="sm" @click.stop="details(row.item)">Details</b-btn>
+        </template>
+        <template slot="dataum" scope="row">
+          <div v-for="check in row.item.data">{{check.measure}}{{check.unit}}</div>
         </template>
       </b-table>
       <ul v-if="errors && errors.length">
@@ -27,8 +30,12 @@ export default {
   name: 'ExerciseList',
   data () {
     return {
+      activeColor:'red',
+      wrapper:100,
       fields: {
         exercise: { label: 'Exercise', sortable: true },
+        primaryMuscle: {label: 'Primary', sortable: true},
+        dataum: {label: 'Measured By', sortable: true},
         actions: { label: 'Action', 'class': 'text-center' }
       },
       exercises: [],

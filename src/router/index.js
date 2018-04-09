@@ -4,6 +4,8 @@ import ExerciseList from '@/components/ExerciseList'
 import ShowExercise from '@/components/ShowExercise'
 import CreateExercise from '@/components/CreateExercise'
 import EditExercise from '@/components/EditExercise'
+import Splash from '@/components/Splash'
+import CreateWorkouts from '@/components/CreateWorkouts'
 
 Vue.use(Router)
 
@@ -11,8 +13,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'ExerciseList',
-      component: ExerciseList
+      name: 'Splash',
+      component: Splash
     },
     {
       path: '/show-exercise/:id',
@@ -28,6 +30,16 @@ export default new Router({
       path: '/edit-exercise/:id',
       name: 'EditExercise',
       component: EditExercise
+    },
+    {
+      path: '/exercise-list',
+      name: 'ExerciseList',
+      component: ExerciseList
+    },
+    {
+      path: '/create-workouts',
+      name: 'CreateWorkouts',
+      component: CreateWorkouts
     }
   ]
 })

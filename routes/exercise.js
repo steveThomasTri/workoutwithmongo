@@ -19,7 +19,7 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/* SAVE BOOK */
+/* SAVE EXERCISE */
 router.post('/', function(req, res, next) {
   Exercise.create(req.body, function (err, post) {
     if (err) return next(err);
