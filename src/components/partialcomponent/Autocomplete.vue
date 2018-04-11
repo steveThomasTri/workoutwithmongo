@@ -1,22 +1,83 @@
 <template>
-	<b-form>
-		<b-form-group id="fieldset1" description="Let us know your name." label="Enter your name" label-for="input1" :invalid-feedback="invalidFeedback" :valid-feedback="validFeedback" :state="state">
-				<b-form-input v-model="text1" type="text" placeholder="Enter Your Name"></b-form-input>
-				<p>{{text1}}</p>
-		</b-form-group>
-		<b-form-group id="fieldset1" description="Let us know your name." label="Enter your name" label-for="input1" :invalid-feedback="invalidFeedback" :valid-feedback="validFeedback" :state="state">
-				<b-form-input v-model="text2" type="text" placeholder="Enter Your Name"></b-form-input>
-				<p>{{text2}}</p>
-		</b-form-group>
-	</b-form>
+	<div style="position:relative" v-bind:class="{'open':openSuggestion}">
+		<input class="form-control" type="text" :value="value" @input="updateValue($event.target.value)"
+			@keydown.enter="enter"
+			@keypress.down="down"
+			@keypress.up="up"
+		>
+		<ul class="dropdown-menu" style="width:100%">
+			<li v-bind:class="{'active':isActive(index)}"
+				@click="suggestionClick(index)"
+				v-for="(suggestion, index) in matches"
+			>
+				<a href="#">{{suggestion.city}} <small>{{suggestion.state}}</small></a>
+			</li>
+		</ul>
+	</div>
 </template>
 
 <script>
 export default{
+	props:{
+		value:{
+			type:String,
+			required:true
+		},
+		suggestions:{
+			type:Array,
+			required:true
+		}
+	},
+
 	data () {
 		return {
-			text1: '',
-			text2: ''
+			open:false,
+			current:0
+		}
+	},
+
+	computed:{
+		matches(){
+			return this.suggestions.filter((obj) =>{
+				return obj.city.indexOf(this.value) >= 0
+			})
+		},
+
+		openSuggestion () {
+			return this.selection !== '' &&
+					this.matches.length !== 0 &&
+					this.open === true
+		}
+	},
+
+	methods:{
+		updateValue (value){
+			if (this.open === false) {
+				this.open = true
+				this.current = 0
+			}
+			this.$emit('input', value)
+		},
+		enter () {
+			this.$emit('input', this.matches[this.current].city)
+			this.open = false
+		},
+		up () {
+			if (this.current > 0){
+				this.current--
+			}
+		},
+		down () {
+			if (this.current < this.matches.length - 1){
+				this.current++
+			}
+		},
+		isActive (index) {
+			return index === this.current
+		},
+		suggestionClick (index) {
+			this.$emit('input', this.matches[index].city)
+			this.open = false
 		}
 	}
 }

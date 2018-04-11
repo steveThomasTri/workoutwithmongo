@@ -1,7 +1,7 @@
 <template>
 	<b-row v-bind:style="{color:activeColor,width:wrapper + '%'}">
 		<b-col cols="12">
-			<Autocomplete />
+			<Autocomplete :suggestions="suggestions" v-model="selection"></Autocomplete>
 		</b-col>
 	</b-row>
 </template>
@@ -24,7 +24,15 @@ export default {
 		        dataum: {label: 'Measured By', sortable: true},
 		    },
 			exercises: [],
-			errors: []
+			errors: [],
+			selection:'',
+			suggestions:[
+				{ city: 'Bangalore', state: 'Karnataka' },
+        { city: 'Chennai', state: 'Tamil Nadu' },
+        { city: 'Delhi', state: 'Delhi' },
+        { city: 'Kolkata', state: 'West Bengal' },
+        { city: 'Mumbai', state: 'Maharashtra' }
+			]
 		}
 	},
 	created () {
