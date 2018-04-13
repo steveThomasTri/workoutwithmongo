@@ -10,6 +10,7 @@
 
 import axios from 'axios'
 import Autocomplete from './partialcomponent/Autocomplete'
+import './autocomplete.css'
 
 export default {
 	name: 'CreateWorkouts',

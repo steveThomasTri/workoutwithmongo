@@ -5,7 +5,8 @@
 			@keypress.down="down"
 			@keypress.up="up"
 		>
-		<ul class="dropdown-menu" style="width:100%">
+		<ul class="dropdown-menu" style="width:100%" 
+			v-bind:class="{'active':isActive(index)}">
 			<li v-bind:class="{'active':isActive(index)}"
 				@click="suggestionClick(index)"
 				v-for="(suggestion, index) in matches"
@@ -73,6 +74,7 @@ export default{
 			}
 		},
 		isActive (index) {
+			turnulon(index === this.current)
 			return index === this.current
 		},
 		suggestionClick (index) {

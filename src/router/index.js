@@ -6,6 +6,7 @@ import CreateExercise from '@/components/CreateExercise'
 import EditExercise from '@/components/EditExercise'
 import Splash from '@/components/Splash'
 import CreateWorkouts from '@/components/CreateWorkouts'
+import AddworkoutTEST from '@/components/AddworkoutTEST'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/create-workouts',
       name: 'CreateWorkouts',
       component: CreateWorkouts
+    },
+    {
+      path: '/add-workout',
+      name: 'AddworkoutTEST',
+      component: AddworkoutTEST
     }
   ]
 })
